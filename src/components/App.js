@@ -4,10 +4,11 @@ import Lattice from './Lattice'
 
 const App = () => {
   const letterInputRef = useRef();
-  const [letters,setLetters] = useState(["L","T","O","E","N","P","U"])
+  const [letters,setLetters] = useState(["l","t","o","e","n","p","u"])
   const [activeHex, setActiveHex] = useState(null);
-  const URL = "https://raw.githubusercontent.com/dwyl/english-words/master/words.txt";
-  const wordList
+  const URL = "https://raw.githubusercontent.com/AvonleaFisher/NYT-Spelling-Bee-Solver-Function/main/words.txt";
+  const [wordList, setwordList] = useState(null);
+  const [answerList, setAnswerList] = useState([]);
 
   const selectHex = (e) => {
     setActiveHex(e.target.parentNode);
@@ -19,11 +20,11 @@ const App = () => {
     console.log(letterInputRef.current.value)
     // activeHex.children[1].textContent = letterInputRef.current.value
     const letterArray = letters
-    letterArray[activeHex.children[1].id] = letterInputRef.current.value.toUpperCase();
+    letterArray[activeHex.children[1].id] = letterInputRef.current.value.toLowerCase();
     setLetters([...letterArray])
     letterInputRef.current.value = ""
   }
-  useEffect(async () => {
+  useEffect( () => {
     const asyncFetch = async () =>{
     const response = await fetch(URL)
     const text = await response.text();
@@ -33,21 +34,63 @@ const App = () => {
       }
       return true
     });
-    console.log(words)
+    setwordList(await words)
       
     }
     asyncFetch();
   },[])
 
+  const searchList = () => {
+    if (wordList) {
+      const reg = new RegExp(`[^${letters.join("")}]`,"g")
+      console.log(reg)
+      const answers = wordList.filter(w => {
+        if (w.length > 3 && w.includes(letters[0])) {
+          if (!w.match(reg)) {
+            return true
+          }
+        } else {
+          return false;
+        }
+      })
+      console.log(answers)
+      setAnswerList(answers)
+    }
+  }
 
+  const isPangram = (string,letters) =>{
+    const result = letters.every(letter => string.includes(letter));
+    return result
+  }
+
+  console.log(isPangram("",letters))
+  console.log(answerList);
   return (
     <div>
+      <div className="header-text">
       <h1>Bee Solver</h1>
-      <h3>{activeHex ? activeHex.getAttribute("transform") : null}</h3>
-      <h3>{ letters}</h3>
+        <h3>Puzzle Letters: {letters}</h3>
+        <p>Click on a hex and type the letter you'd like to switch it to.</p>
       <input ref={letterInputRef} className="letter-input" defaultValue="" onChange={handleLetter}></input>
-      <div className="frame">
-        <Lattice selectHexFunction={selectHex} letters={letters} activeHexID={activeHex ? activeHex.children[0].id : -1} />
+      <button className="button" onClick={ searchList }>Solve</button>
+      </div>
+
+      <div className="row">
+        <div className="frame">
+          <Lattice selectHexFunction={selectHex} letters={letters} activeHexID={activeHex ? activeHex.children[0].id : -1} />
+        </div>
+        <div>
+        <ul className="word-list">
+          {
+              answerList.map(w => {
+                if (w.include) {
+                
+              }
+              return <li className={isPangram(w,letters) ? "pangram" : ""}>{w}</li>
+            })
+          }
+          </ul>
+          </div>
       </div>
     </div>
   )

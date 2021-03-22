@@ -1,14 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Spartan:wght@300;400;700&display=swap");
+
 * {
   box-sizing: border-box;
 }
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: "Spartan", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: darkgray;
+  color: #424242;
 }
 
 code {
@@ -18,9 +18,7 @@ code {
 
 .lattice {
   /* fill: red; */
-  width: 40%;
-  /* height: 100%; */
-  border: 2px solid black;
+  max-width: 100%;
   /* background-color: black; */
 }
 .hex {
@@ -45,7 +43,57 @@ text {
   text-transform: uppercase;
 }
 
+.letter-input {
+  background: none;
+  width: 0;
+  height: 0;
+  border: none;
+  overflow-x: hidden;
+  overflow-y: hidden;
+}
 .letter-input:focus {
   /* border: 3px solid red; */
   outline: none;
+}
+.row {
+  display: grid;
+  width: 90%;
+  max-width: 1160px;
+  margin: 5rem auto 0;
+}
+
+@media only screen and (min-width: 800px) {
+  .row {
+    grid-template-columns: minmax(600px, 1fr) minmax(min-content, 1fr);
+    align-items: center;
+  }
+}
+
+.word-list {
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+}
+.word-list li {
+  margin: 1rem;
+  padding: 0.5rem 1rem;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.3);
+}
+
+li.pangram {
+  border-color: gold;
+}
+.frame {
+  width: 100%;
+}
+.header-text {
+  text-align: center;
+}
+.button {
+  background-color: inherit;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  padding: 0.5rem 1.1rem;
+  border: 3px solid rgba(0, 0, 0, 0.3);
 }

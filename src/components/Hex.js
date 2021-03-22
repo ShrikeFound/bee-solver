@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Hex = ({ size,q,r,selectHexFunction,defaultFill = "white",value,id,activeHexID }) => {
+const Hex = ({ size,q,r,selectHexFunction,defaultFill = "rgba(0,0,0,.1)",value,id,activeHexID }) => {
   const height = Math.sqrt(3)*size;
   const width = size * 2
   const x = (q*1.1) * width * .75
