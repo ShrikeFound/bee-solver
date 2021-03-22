@@ -48,6 +48,8 @@ const App = () => {
         if (w.length > 3 && w.includes(letters[0])) {
           if (!w.match(reg)) {
             return true
+          } else {
+            return false
           }
         } else {
           return false;
