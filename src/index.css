@@ -59,13 +59,13 @@ text {
   display: grid;
   width: 90%;
   max-width: 1160px;
-  margin: 5rem auto 0;
+  margin: 2rem auto 0;
 }
 
 @media only screen and (min-width: 800px) {
   .row {
     grid-template-columns: minmax(600px, 1fr) minmax(min-content, 1fr);
-    align-items: center;
+    /* align-items: center; */
   }
 }
 
@@ -96,4 +96,5 @@ li.pangram {
   text-transform: uppercase;
   padding: 0.5rem 1.1rem;
   border: 3px solid rgba(0, 0, 0, 0.3);
+  cursor: pointer;
 }

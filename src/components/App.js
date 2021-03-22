@@ -16,14 +16,20 @@ const App = () => {
   }
 
   const handleLetter = () => {
-    if (letterInputRef.current.value.length !== 1) return;
+
+    if (letterInputRef.current.value.length !== 1 || letterInputRef.current.value.match(/\d/g)) {
+      letterInputRef.current.value = ""
+      return
+    }
     console.log(letterInputRef.current.value)
-    // activeHex.children[1].textContent = letterInputRef.current.value
     const letterArray = letters
     letterArray[activeHex.children[1].id] = letterInputRef.current.value.toLowerCase();
-    setLetters([...letterArray])
     letterInputRef.current.value = ""
+    document.activeElement.blur();
+    setLetters([...letterArray])
+    setActiveHex(null)
   }
+
   useEffect( () => {
     const asyncFetch = async () =>{
     const response = await fetch(URL)
