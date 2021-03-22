@@ -27,15 +27,25 @@ code {
   transition: all ease-in-out 350ms;
 }
 .hex:hover {
-  fill: goldenrod;
+  /* fill: goldenrod; */
 }
 .hex:active {
   fill: gold;
 }
+
+.selected-hex {
+  stroke: rgba(255, 215, 0, 0.5);
+}
+
 text::selection {
   background: none;
 }
 text {
   cursor: default;
   text-transform: uppercase;
+}
+
+.letter-input:focus {
+  /* border: 3px solid red; */
+  outline: none;
 }
